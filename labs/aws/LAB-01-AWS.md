@@ -1,14 +1,14 @@
-# LAB-01-GH: Getting Started with Terraform Configuration with GitHub
+# LAB-01-AWS: Getting Started with Terraform Configuration with AWS
 **Reference**: https://github.com/btkrausen/terraform-codespaces
 
 ## Overview
-In this lab, you will create your first Terraform configuration for GitHub by setting up the required file structure and implementing the GitHub provider configuration. You'll learn how to format, validate, and initialize a Terraform working directory.
+In this lab, you will create your first Terraform configuration for AWS by setting up the required file structure and implementing the AWS provider configuration. You'll learn how to format, validate, and initialize a Terraform working directory.
 
 ## Prerequisites
 - Terraform installed
 - VS Code or preferred code editor installed
 
-Note: GitHub credentials are not required for this lab as we will only be configuring the provider without creating any resources.
+Note: AWS credentials are not required for this lab as we will only be configuring the provider without creating any resources.
 
 ## How to Use This Hands-On Lab
 
@@ -45,11 +45,10 @@ Create the initial configuration files in this directory:
 ```bash
 touch main.tf variables.tf providers.tf
 ```
-
 You can also just create these in VSCode by right-clicking the directory.
 
 Your directory structure should look like this:
-```bash
+```
 labs/
 └── terraform/
     ├── main.tf
@@ -59,7 +58,8 @@ labs/
 
 This directory will be your working environment for the upcoming labs as we build our infrastructure incrementally.
 
-### 3. Configure the GitHub Provider
+
+### 3. Configure the AWS Provider
 
 Open `providers.tf` and add the following configuration:
 
@@ -67,14 +67,16 @@ Open `providers.tf` and add the following configuration:
 terraform {
   required_version = ">= 1.10.x"  # Replace with your installed version
   required_providers {
-    github = {
-      source  = "integrations/github"
-      version = "~> 6.5.0"
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 5.0"
     }
   }
 }
 
-provider "github" {}
+provider "aws" {
+  region = "us-east-1"
+}
 ```
 
 ### 4. Format the Configuration
@@ -94,18 +96,20 @@ Expected output: If any files were formatted, their names will be listed. If no 
  terraform init
  ```
 
-Expected Output:
+Expected output:
 ```bash
-# terraform init
 Initializing the backend...
 Initializing provider plugins...
-- Finding integrations/github versions matching "~> 6.5.0"...
-- Installing integrations/github v6.5.0...
-- Installed integrations/github v6.5.0 (signed by a HashiCorp partner, key ID 38027F80D7FD5FB2)
-Partner and community providers are signed by their developers.
-If you'd like to know more about provider signing, you can read about it here:
-https://www.terraform.io/docs/cli/plugins/signing.html
+- Finding hashicorp/aws versions matching "~> 5.0"...
+- Installing hashicorp/aws v5.87.0...
+- Installed hashicorp/aws v5.87.0 (signed by HashiCorp)
 Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+
+Terraform has been successfully initialized!
 ```
 
 ### 6. Validate the Configuration
@@ -139,10 +143,12 @@ terraform init
 
 You should see an error message similar to:
 ```
-Error: Unsupported Terraform Core version
-
-This configuration requires Terraform version >= 99.0.0, but the current version
-is x.x.x. Please upgrade Terraform to a supported version.
+Initializing the backend...
+╷
+│ Error: Unsupported Terraform Core version
+│ 
+│   on providers.tf line 2, in terraform:
+│    2:   required_version = ">= 99.0.0" # Replace with your installed version
 ```
 
 3. Change the version requirement back to your current version:
@@ -164,31 +170,31 @@ Expected output: You should now see success messages indicating proper initializ
 After completing the lab, verify your work:
 
 1. Your directory structure should look like this:
-```
+```bash
 labs/
 └── terraform/
+    ├── .terraform/
+    ├── .terraform.lock.hcl
     ├── main.tf
     ├── providers.tf
-    ├── variables.tf
-    ├── .terraform.lock.hcl
-    └── .terraform/
+    └── variables.tf
 ```
 
 2. Verify the following:
    - The `.terraform` directory exists after initialization
    - The `.terraform.lock.hcl` file has been created
-   - GitHub provider is listed in the lock file
+   - AWS provider is listed in the lock file
    - No error messages are present from the validate command
    - All files are properly formatted
 
 ## Clean Up
 
-No clean up is required for this lab as no GitHub resources were created. 
+No clean up is required for this lab as no AWS resources were created. 
 
 ## Success Criteria
 - You have created the required file structure
 - All Terraform commands (fmt, validate, init) execute successfully
 - You observed and understood the version constraint error
 - You successfully fixed the version constraint
-- The GitHub provider is properly initialized
+- The AWS provider is properly initialized
 - The `.terraform.lock.hcl` file is created

@@ -7,7 +7,10 @@
     "features": {
         "ghcr.io/devcontainers/features/aws-cli:1": {
             "version": "latest"
-        }
+        },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
   },
     "customizations": {
         "vscode": {
@@ -23,6 +26,9 @@
            
         }
     },
+    "remoteEnv": {
+        "AWS_CLI_AUTO_PROMPT": "on-partial"
+    },
     "remoteUser": "root",
-    "postCreateCommand": "terraform --version && git --version && aws --version"
+    "postCreateCommand": "terraform --version && git --version && npm install -g aws-cdk && aws --version && cdk --version"
 }
