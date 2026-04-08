@@ -28,6 +28,7 @@ Determine your installed Terraform version:
 ```bash
 terraform version
 ```
+![](1.png)
 
 Note this version number as you'll need it for the provider configuration.
 
@@ -39,12 +40,14 @@ Create a labs directory and a terraform directory within it that will serve as y
 mkdir -p labs/github/terraform
 cd labs/github/terraform
 ```
+![](2.png)
 
 Create the initial configuration files in this directory:
 
 ```bash
 touch main.tf variables.tf providers.tf
 ```
+![](3.png)
 
 You can also just create these in VSCode by right-clicking the directory.
 
@@ -57,6 +60,7 @@ labs/
       ├── providers.tf
       └── variables.tf
 ```
+![](5.png)
 
 This directory will be your working environment for the upcoming labs as we build our infrastructure incrementally.
 
@@ -77,7 +81,7 @@ terraform {
 
 provider "github" {}
 ```
-
+![](6.png)
 ### 4. Format the Configuration
 
 Run the following command to ensure consistent formatting:
@@ -85,6 +89,7 @@ Run the following command to ensure consistent formatting:
 ```bash
 terraform fmt
 ```
+![](7.png)
 
 Expected output: If any files were formatted, their names will be listed. If no formatting was needed, there will be no output.
 
@@ -94,7 +99,7 @@ Expected output: If any files were formatted, their names will be listed. If no 
  ```bash
  terraform init
  ```
-
+![](8.png)
 Expected Output:
 ```bash
 # terraform init
@@ -116,6 +121,7 @@ Run the validation command to check for syntax errors:
 ```bash
 terraform validate
 ```
+![](9.png)
 
 Expected output:
 ```
@@ -137,7 +143,7 @@ required_version = ">= 99.0.0"  # An intentionally high version
 ```bash
 terraform init
 ```
-
+![](10.png)
 You should see an error message similar to:
 ```
 Error: Unsupported Terraform Core version
@@ -181,6 +187,8 @@ labs/
    - GitHub provider is listed in the lock file
    - No error messages are present from the validate command
    - All files are properly formatted
+
+![](11.png)
 
 ## Clean Up
 

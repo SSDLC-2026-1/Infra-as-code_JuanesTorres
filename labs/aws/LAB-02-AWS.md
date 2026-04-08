@@ -27,7 +27,7 @@ If you're in a different directory, change to the Terraform working directory:
 ```bash
 cd labs/terraform
 ```
-
+![](37.png)
 ### 2. Configure AWS Credentials
 
 Set your AWS credentials as environment variables:
@@ -36,7 +36,7 @@ Set your AWS credentials as environment variables:
 export AWS_ACCESS_KEY_ID="your_access_key"
 export AWS_SECRET_ACCESS_KEY="your_secret_key"
 ```
-
+![](40.png)
 ### 3. Add EC2 Resource Configuration
 
 Open `main.tf` and add the following EC2 configuration (purposely not written in HCL canonical style).
@@ -111,7 +111,7 @@ Validate the syntax:
 ```bash
 terraform validate
 ```
-
+![](39.png)
 ### 5. Review the Plan
 
 Generate and review the execution plan:
@@ -124,13 +124,13 @@ The plan output will show that Terraform intends to create a new EC2 instance wi
 - Instance type `t3.micro` (Free Tier eligible in many accounts/regions)
 - Three tags: Name, Environment, and Managed_By
 
+![](41.png)
 ### 6. Apply the Configuration
 
 Apply the configuration to create the EC2 instance:
 ```bash
 terraform apply
 ```
-
 Review the proposed changes and type `yes` when prompted to confirm.
 
 ### 7. Verify the Resource
@@ -139,7 +139,9 @@ Review the EC2 instance creation using the AWS CLI:
 ```bash
 aws ec2 describe-instances --filters "Name=tag:Name,Values=terraform-free-tier-ec2-firstname-lastname" --region=us-east-1 # Replace firstname-lastname with your identifier
 ```
+![](42.png)
 
+![](43.png)
 ### 8. Update the EC2 Instance Resource
 
 In the `main.tf` file, update the EC2 configuration by changing a tag value:
@@ -157,6 +159,7 @@ resource "aws_instance" "main" {
     Managed_By  = "Terraform"
   }
 }
+
 ```
 
 ### 9. Run a Terraform Plan to Perform a Dry Run
@@ -181,6 +184,7 @@ Terraform will perform the following actions:
 
   # aws_instance.main will be updated in-place
   ```
+![](44.png)
 
 ### 10. Apply the Configuration
 
@@ -190,6 +194,8 @@ terraform apply
 ```
 
 Review the proposed changes and type `yes` when prompted to confirm.
+
+![](45.png)
 
 ### 11. Update the Tags on the EC2 Instance
 
@@ -209,7 +215,6 @@ resource "aws_instance" "main" {
   }
 }
 ```
-
 ### 12. Run a Terraform Plan to Perform a Dry Run
 
 Generate and review the execution plan:
@@ -232,6 +237,7 @@ Terraform will perform the following actions:
 
   # aws_instance.main will be updated in-place
   ```
+![](46.png)
 
 ### 13. Apply the Configuration
 
@@ -243,6 +249,8 @@ terraform apply
 
 Review the proposed changes and type `yes` when prompted to confirm.
 
+![](47.png)
+
 ## Verification Steps
 
 Confirm that:
@@ -252,6 +260,8 @@ Confirm that:
    - All specified tags present
 2. A terraform.tfstate file exists in your directory
 3. All Terraform commands completed successfully
+
+![](48.png)
 
 ## Success Criteria
 Your lab is successful if:
